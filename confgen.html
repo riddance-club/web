@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>riddance autofarm config generator</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 10px
+      }
+      .section {
+        margin-bottom: 15px
+      }
+      label {
+        display: block;
+        margin: 2px 0
+      }
+      button {
+        margin-top: 10px;
+        padding: 5px 10px
+      }
+    </style>
+  </head>
+  <body>
+    <h2>riddance autofarm config generator</h2>
+    <div id="form"></div>
+    <label>watermark: <input type="text" id="watermark" value="enteryourwatermarkheretokeepyourstuffsafe">
+    </label>
+    <button id="download">download config json</button>
+    <script>
+      const itemsList = ["ResearchCapsule", "FakeCapsule", "HolidayCollectibleItem", "HealthKit", "Instructions", "Pop", "SpeedCandy", "Bandage", "PopBottle", "JumperCable", "BonBon", "ProteinBar", "SmokeBomb", "EjectButton", "Chocolate", "Gumball", "Stopwatch", "AirHorn", "Jawbreaker", "Valve", "ChocolateBox", "StealthCandy", "SkillCheckCandy", "StaminaCandy", "ExtractionSpeedCandy", "Tape", "ChristmasCookie"];
+      const cardsList = ["DyleFloor", "ItemRarity", "ItemRarity2", "Machine", "MonsterPanicReduction", "FrostShield", "AbilityCooldown", "AbilityCooldown2", "GlowLight", "Stamina", "Stamina2", "BlackOut", "RandomItem", "RandomItem2", "Elevator", "Elevator2", "SurvivalPoint", "SurvivalPoint2", "DandyDiscount", "PipingTape"];
+      const defaultItemsBlacklist = ["Pop", "SpeedCandy", "PopBottle", "ProteinBar", "SmokeBomb", "EjectButton", "Chocolate", "Gumball", "Stopwatch", "StealthCandy", "AirHorn", "ChocolateBox", "Jawbreaker", "StaminaCandy", "FakeCapsule"];
+      const config = {
+        serveracbypass: {
+          type: "Toggle",
+          value: true
+        },
+        buyaura: {
+          type: "Toggle",
+          value: true
+        },
+        antiafk: {
+          type: "Toggle",
+          value: true
+        },
+        autofarm: {
+          type: "Toggle",
+          value: true
+        },
+        autoteleporttogenerator: {
+          type: "Toggle",
+          value: true
+        },
+        autouseactiveability: {
+          type: "Toggle",
+          value: true
+        },
+        autovotebestcard: {
+          type: "Toggle",
+          value: true
+        },
+        autoteleporttoelevator: {
+          type: "Toggle",
+          value: true
+        },
+        regulartwisteddodgedistance: {
+          type: "Slider",
+          value: 30,
+          min: 0,
+          max: 240
+        },
+        dangeroustwisteddodgedistance: {
+          type: "Slider",
+          value: 60,
+          min: 0,
+          max: 240
+        },
+        limithealitems: {
+          type: "Select",
+          value: "3",
+          options: ["1", "2", "3"]
+        },
+        blacklistaura: {
+          type: "Multi",
+          value: defaultItemsBlacklist,
+          options: itemsList
+        },
+        blacklistcards: {
+          type: "Multi",
+          value: [],
+          options: cardsList
+        }
+      };
+      const inputs = {},
+        form = document.getElementById("form"),
+        watermarkInput = document.getElementById("watermark");
+      const toggleOrder = [],
+        sliderOrder = [],
+        selectOrder = [];
+      for (const key in config) {
+        const conf = config[key];
+        if (conf.type === "Toggle") toggleOrder.push({
+          key,
+          conf
+        });
+        if (conf.type === "Slider") sliderOrder.push({
+          key,
+          conf
+        });
+        if (conf.type === "Select" || conf.type === "Multi") selectOrder.push({
+          key,
+          conf
+        });
+      }
+      function createSection(key, conf) {
+        const section = document.createElement("div");
+        section.className = "section";
+        if (conf.type === "Toggle") {
+          section.innerHTML = `
+					<label>
+						<input type="checkbox" ${conf.value?"checked":""}> ${key}
+						</label>`;
+          inputs[key] = section.querySelector("input")
+        }
+        if (conf.type === "Slider") {
+          section.innerHTML = `
+						<label>${key}: 
+							<input type="range" min="${conf.min}" max="${conf.max}" value="${conf.value}">
+								<span>${conf.value}</span>
+							</label>`;
+          const slider = section.querySelector("input");
+          const span = section.querySelector("span");
+          slider.addEventListener("input", () => span.textContent = slider.value);
+          inputs[key] = slider
+        }
+        if (conf.type === "Select") {
+          const options = conf.options.map(v => `
+							<option ${v===conf.value?"selected":""}>${v}</option>`).join("");
+          section.innerHTML = `
+							<label>${key}: 
+								<select>${options}</select>
+							</label>`;
+          inputs[key] = section.querySelector("select")
+        }
+        if (conf.type === "Multi") {
+          section.innerHTML = `
+							<label>${key}: </label>` + conf.options.map(v => `
+							<label>
+								<input type="checkbox" value="${v}" ${conf.value.includes(v)?"checked":""}> ${v}
+								</label>`).join("");
+          inputs[key] = Array.from(section.querySelectorAll("input"))
+        }
+        return section
+      }
+      toggleOrder.forEach(o => form.appendChild(createSection(o.key, o.conf)))
+      sliderOrder.forEach(o => form.appendChild(createSection(o.key, o.conf)))
+      selectOrder.forEach(o => form.appendChild(createSection(o.key, o.conf)))
+      function generateJSON() {
+        const elements = {};
+        for (const key in config) {
+          const conf = config[key];
+          if (conf.type === "Toggle") elements[key] = {
+            value: inputs[key].checked,
+            __type: "Toggle"
+          };
+          if (conf.type === "Slider") elements[key] = {
+            value: +inputs[key].value,
+            __type: "Slider"
+          };
+          if (conf.type === "Select") elements[key] = {
+            value: inputs[key].value,
+            __type: "Dropdown"
+          };
+          if (conf.type === "Multi") {
+            const selected = inputs[key].filter(i => i.checked).map(i => i.value);
+            elements[key] = {
+              value: selected,
+              __type: "Dropdown"
+            }
+          }
+        }
+        return {
+          __elements: elements,
+          __ourtextbythesewordsguardedpleasedontstealriddance: watermarkInput.value
+        }
+      }
+      document.getElementById("download").addEventListener("click", () => {
+        const data = generateJSON();
+        const blob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json"
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "config.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+      form.addEventListener("input", generateJSON);
+      watermarkInput.addEventListener("input", generateJSON);
+    </script>
+  </body>
+</html>
