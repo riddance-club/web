@@ -130,11 +130,14 @@
           slider.addEventListener("input", () => span.textContent = slider.value);
           inputs[key] = slider
         }
-        if (conf.type === "Select" && inputs[key].value !== "") {
-          elements[key] = {
-            value: inputs[key].value,
-            __type: "Dropdown"
-          };
+        if (conf.type === "Select") {
+          const options = conf.options.map(v => `
+							<option ${v===conf.value?"selected":""}>${v}</option>`).join("");
+          section.innerHTML = `
+							<label>${key}: 
+								<select>${options}</select>
+							</label>`;
+          inputs[key] = section.querySelector("select")
         }
         if (conf.type === "Multi") {
           section.innerHTML = `
@@ -161,17 +164,21 @@
             value: +inputs[key].value,
             __type: "Slider"
           };
-          if (conf.type === "Select") elements[key] = {
-            value: inputs[key].value,
-            __type: "Dropdown"
+          if (conf.type === "Select" && inputs[key].value !== "") {
+            elements[key] = {
+              value: inputs[key].value,
+              __type: "Dropdown"
+            };
           };
           if (conf.type === "Multi") {
             const selected = inputs[key].filter(i => i.checked).map(i => i.value);
-            elements[key] = {
-              value: selected,
-              __type: "Dropdown"
+            if (selected.length > 0) {
+              elements[key] = {
+                value: selected,
+                __type: "Dropdown"
+              };
             }
-          }
+          };
         }
         return {
           __elements: elements,
