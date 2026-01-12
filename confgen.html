@@ -130,14 +130,11 @@
           slider.addEventListener("input", () => span.textContent = slider.value);
           inputs[key] = slider
         }
-        if (conf.type === "Select") {
-          const options = conf.options.map(v => `
-							<option ${v===conf.value?"selected":""}>${v}</option>`).join("");
-          section.innerHTML = `
-							<label>${key}: 
-								<select>${options}</select>
-							</label>`;
-          inputs[key] = section.querySelector("select")
+        if (conf.type === "Select" && inputs[key].value !== "") {
+          elements[key] = {
+            value: inputs[key].value,
+            __type: "Dropdown"
+          };
         }
         if (conf.type === "Multi") {
           section.innerHTML = `
