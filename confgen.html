@@ -156,10 +156,12 @@
         const elements = {};
         for (const key in config) {
           const conf = config[key];
-          if (conf.type === "Toggle") elements[key] = {
-            value: inputs[key].checked,
-            __type: "Toggle"
-          };
+          if (conf.type === "Toggle" && inputs[key].checked) {
+            elements[key] = {
+              value: true,
+              __type: "Toggle"
+  			};
+          }
           if (conf.type === "Slider") elements[key] = {
             value: +inputs[key].value,
             __type: "Slider"
