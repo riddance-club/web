@@ -194,12 +194,15 @@
               };
             }
           }
-          if (conf.type === "Select" && inputs[key].value !== "") {
-            elements[key] = {
-              value: inputs[key].value,
-              __type: "Dropdown"
-            };
-          };
+          if (conf.type === "Select") {
+            const val = inputs[key].value;
+            if (val !== conf.default) {
+              elements[key] = {
+                value: val,
+                __type: "Dropdown"
+              };
+            }
+          }
           if (conf.type === "Multi") {
             const selected = inputs[key].filter(i => i.checked).map(i => i.value);
             if (selected.length > 0) {
