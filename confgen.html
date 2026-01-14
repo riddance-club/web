@@ -83,18 +83,21 @@
         regulartwisteddodgedistance: {
           type: "Slider",
           value: 30,
+          default: 30,
           min: 0,
           max: 240
         },
         dangeroustwisteddodgedistance: {
           type: "Slider",
           value: 60,
+          default: 60,
           min: 0,
           max: 240
         },
         limithealitems: {
           type: "Select",
           value: "3",
+          default: "3",
           options: ["1", "2", "3"]
         },
         blacklistaura: {
@@ -182,10 +185,15 @@
               __type: "Toggle"
   			};
           }
-          if (conf.type === "Slider") elements[key] = {
-            value: +inputs[key].value,
-            __type: "Slider"
-          };
+          if (conf.type === "Slider") {
+            const val = +inputs[key].value;
+            if (val !== conf.default) {
+              elements[key] = {
+                value: val,
+                __type: "Slider"
+              };
+            }
+          }
           if (conf.type === "Select" && inputs[key].value !== "") {
             elements[key] = {
               value: inputs[key].value,
