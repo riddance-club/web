@@ -58,7 +58,27 @@
         },
         autoteleporttoelevator: {
           type: "Toggle",
+          value: false
+        },
+		autorejoinondisconnect: {
+          type: "Toggle",
           value: true
+        },
+		autorejoinondeath: {
+          type: "Toggle",
+          value: true
+        },
+		autorejoinonplayer: {
+          type: "Toggle",
+          value: true
+        },
+		disablerendering: {
+          type: "Toggle",
+          value: true
+        },
+        antilag: {
+          type: "Toggle",
+          value: false
         },
         regulartwisteddodgedistance: {
           type: "Slider",
@@ -183,7 +203,10 @@
           };
         }
         return {
+          __version: 1.2,
+          __autoload: false,
           __elements: elements,
+          __custom: [],
           __ourtextbythesewordsguardedpleasedontstealriddance: watermarkInput.value
         }
       }
