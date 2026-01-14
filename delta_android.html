@@ -12,7 +12,7 @@ const r=await fetch("https://delta.filenetwork.vip/get_files.php")
 if(!r.ok)throw"info failed"
 const j=await r.json()
 const f=j.latest_apk[0].name
-s("redirecting")
+s("redirecting...")
 location.href="https://delta.filenetwork.vip/file/"+f
 }catch(e){s("error: "+e)}
 })()
