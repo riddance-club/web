@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
   <title>riddance's roblox hidden username finder</title>
 </head>
 <body>
   <button onclick="startFinding()">start</button>
+  <button onclick="requestCors()">request cors access</button>
   <div id="status"></div>
   <script>
     let tries = 0;
     let running = false;
-    function randomLength() {
-      return Math.floor(Math.random() * 11) + 10; // 10–20
+
+    function requestCors() {
+      window.open("https://cors-anywhere.herokuapp.com/corsdemo", "_blank");
     }
+
+    function randomLength() {
+      return Math.floor(Math.random() * 11) + 10;
+    }
+
     function randomUsername(length) {
       const chars = ["l", "I"];
       let result = "";
@@ -21,21 +27,26 @@
       }
       return result;
     }
+
     async function checkUsername(username) {
-      const url = `https://auth.roblox.com/v1/usernames/validate?birthday=2006-09-21T07:00:00.000Z&context=Signup&username=${username}`;
+      const target = `https://auth.roblox.com/v1/usernames/validate?birthday=2006-09-21T07:00:00.000Z&context=Signup&username=${username}`;
+      const url = `https://cors-anywhere.herokuapp.com/${target}`;
       const res = await fetch(url);
       return await res.json();
     }
+
     async function startFinding() {
       if (running) return;
       running = true;
       tries = 0;
       const status = document.getElementById("status");
+
       while (running) {
         tries++;
         status.textContent = `finding... (test ${tries})`;
         const length = randomLength();
         const username = randomUsername(length);
+
         try {
           const result = await checkUsername(username);
           if (result.code === 0) {
@@ -43,13 +54,14 @@
             running = false;
             return;
           } else {
-            status.textContent = "invalid. retrying...";
+            status.textContent = "username was invalid, retrying...";
           }
         } catch (err) {
-          status.textContent = "error checking username (likely CORS)";
+          status.textContent = "error checking username";
           running = false;
           return;
         }
+
         await new Promise(r => setTimeout(r, 300));
       }
     }
