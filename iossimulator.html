@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>iOS Simulator Launcher</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+select, button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+label { display: block; margin-top: 10px; }
+button { cursor: pointer; }
+</style>
+</head>
+<body>
+<h2>iOS Simulator Launcher</h2>
+<label><strong>Select Device:</strong></label>
+<select id="deviceSelect"></select>
+<label><strong>Select iOS Version:</strong></label>
+<select id="osSelect"></select>
+<label>
+    <input type="checkbox" id="disableScreenOnly">
+    Disable Screen-Only Mode
+</label>
+<button id="launchBtn">Launch Simulator</button>
+<script>
+const deviceSelect = document.getElementById("deviceSelect");
+const osSelect = document.getElementById("osSelect");
+const disableScreenOnly = document.getElementById("disableScreenOnly");
+async function loadDevices() {
+    try {
+        const res = await fetch("https://api.appetize.io/v2/service/devices");
+        const devices = (await res.json()).filter(d => d.platform === "ios");
+        devices.forEach(d => {
+            const opt = document.createElement("option");
+            opt.value = d.id;
+            opt.textContent = d.name;
+            opt.dataset.os = JSON.stringify(d.osVersions);
+            deviceSelect.appendChild(opt);
+        });
+        updateOS();
+    } catch (e) {
+        alert("Failed to load device list.");
+        console.error(e);
+    }
+}
+function updateOS() {
+    const versions = JSON.parse(deviceSelect.selectedOptions[0].dataset.os);
+    osSelect.innerHTML = "";
+    versions.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = opt.textContent = v;
+        osSelect.appendChild(opt);
+    });
+}
+deviceSelect.addEventListener("change", updateOS);
+document.getElementById("launchBtn").onclick = () => {
+    const screenOnly = disableScreenOnly.checked ? "false" : "true";
+    const url = `https://appetize.io/embed/demo_ea5a5c67z2eqszqkb64wu6t6ta?scale=auto&codec=jpeg&centered=both&appearance=dark&launchApp=false`+`&device=${deviceSelect.value}`+`&osVersion=${osSelect.value}`+`&screenOnly=${screenOnly}`;
+    window.location.href = url;
+};
+loadDevices();
+</script>
+</body>
+</html>
