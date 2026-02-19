@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+clear
 ROBLOX_CONTENT="/Applications/RobloxStudio.app/Contents/Resources/content"
 LOCAL_ASSETS_LINK="$ROBLOX_CONTENT/LocalAssets"
 USER_ASSETS_DIR="$HOME/rbxlocalassets"
