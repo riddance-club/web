@@ -4,10 +4,10 @@ ROBLOX_CONTENT="/Applications/RobloxStudio.app/Contents/Resources/content"
 LOCAL_ASSETS_LINK="$ROBLOX_CONTENT/LocalAssets"
 USER_ASSETS_DIR="$HOME/rbxlocalassets"
 echo "Roblox Studio Local Assets Linker for macOS."
-echo "Made by Riddance Club Team."
+echo "Made by Riddance Club."
 echo
 if [[ ! -d "$ROBLOX_CONTENT" ]]; then
-    echo "Error: Roblox Studio content directory not found."
+    echo "Roblox Studio content directory not found."
     exit 1
 fi
 mkdir -p "$USER_ASSETS_DIR"
