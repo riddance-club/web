@@ -9,7 +9,7 @@ $RobloxContent = Join-Path $StudioPath.FullName "content"
 $LocalAssetsLink = Join-Path $RobloxContent "LocalAssets"
 $UserAssetsDir = Join-Path $env:USERPROFILE "rbxlocalassets"
 Write-Host "Roblox Studio Local Assets Linker for Windows."
-Write-Host "Made by Riddance Club Team."
+Write-Host "Made by Riddance Club."
 Write-Host ""
 if (-not (Test-Path $UserAssetsDir)) {
     New-Item -ItemType Directory -Path $UserAssetsDir | Out-Null
