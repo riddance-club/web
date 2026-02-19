@@ -18,7 +18,7 @@ if (Test-Path $LocalAssetsLink) {
     Remove-Item -Path $LocalAssetsLink -Recurse -Force
 }
 New-Item -ItemType SymbolicLink -Path $LocalAssetsLink -Target $UserAssetsDir | Out-Null
-Write-Host "Done! You will need to rerun this script every time Roblox Studio updates."
+Write-Host "Done! You will need to rerun this script after Roblox Studio updates."
 Write-Host "Usage:"
 Write-Host "  Put all your local assets in: $UserAssetsDir"
 Write-Host "  Access them in Studio using:"
