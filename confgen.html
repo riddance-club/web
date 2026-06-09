@@ -32,160 +32,41 @@
       const cardsList = ["DyleFloor", "ItemRarity", "ItemRarity2", "Machine", "MonsterPanicReduction", "FrostShield", "AbilityCooldown", "AbilityCooldown2", "GlowLight", "Stamina", "Stamina2", "BlackOut", "RandomItem", "RandomItem2", "Elevator", "Elevator2", "SurvivalPoint", "SurvivalPoint2", "DandyDiscount", "PipingTape"];
       const defaultItemsBlacklist = ["Pop", "SpeedCandy", "PopBottle", "ProteinBar", "SmokeBomb", "EjectButton", "Chocolate", "Gumball", "Stopwatch", "StealthCandy", "AirHorn", "ChocolateBox", "Jawbreaker", "StaminaCandy", "FakeCapsule"];
       const config = {
-        autofarm: {
-          type: "Toggle",
-          value: true
-        },
-		autouseactiveability: {
-          type: "Toggle",
-          value: true
-        },
-		autohealability: {
-          type: "Toggle",
-          value: false
-        },
-		autoboostextraction: {
-          type: "Toggle",
-          value: false
-        },
-		"autohide/blotjrability": {
-          type: "Toggle",
-          value: false
-        },
-        autovotebestcard: {
-          type: "Toggle",
-          value: true
-        },
-		autorejoinondisconnect: {
-          type: "Toggle",
-          value: true
-        },
-		autorejoinondeath: {
-          type: "Toggle",
-          value: true
-        },
-		autorejoinonplayer: {
-          type: "Toggle",
-          value: true
-        },
-		autorejoinonplayer: {
-          type: "Toggle",
-          value: true
-        },
-		autoforcestopgenerator: {
-          type: "Toggle",
-          value: true
-        },
-		autoteleporttogenerator: {
-          type: "Toggle",
-          value: false
-        },
-        autoteleporttoelevator: {
-          type: "Toggle",
-          value: false
-        },
-		autosquirmescape: {
-          type: "Toggle",
-          value: true
-        },
-		experimentalmode: {
-          type: "Toggle",
-          value: false
-        },
-		encountermode: {
-          type: "Toggle",
-          value: true
-        },
-		eggsonmode: {
-          type: "Toggle",
-          value: false
-        },
-		primemode: {
-          type: "Toggle",
-          value: false
-        },
-		disablebypassmode: {
-          type: "Toggle",
-          value: true
-		},
-		disablebuyingitems: {
-          type: "Toggle",
-          value: false
-		},
-		disableitempickup: {
-          type: "Toggle",
-          value: false
-		},
-		forcegetitems: {
-          type: "Toggle",
-          value: true
-		},
-		serveracbypass: {
-          type: "Toggle",
-          value: false
-        },
-		buyaura: {
-          type: "Toggle",
-          value: true
-        },
-		disablerendering: {
-          type: "Toggle",
-          value: false
-        },
-		fullbright: {
-          type: "Toggle",
-          value: true
-        },
-		nofog: {
-          type: "Toggle",
-          value: true
-        },
-        antilag: {
-          type: "Toggle",
-          value: true
-        },
-		antiafk: {
-          type: "Toggle",
-          value: true
-        },
-		antipopup: {
-          type: "Toggle",
-          value: true
-        },
-		antiichorscreen: {
-          type: "Toggle",
-          value: true
-        },
-        regulartwisteddodgedistance: {
-          type: "Slider",
-          value: 60,
-          default: 60,
-          min: 0,
-          max: 240
-        },
-        dangeroustwisteddodgedistance: {
-          type: "Slider",
-          value: 90,
-          default: 90,
-          min: 0,
-          max: 240
-        },
-        limithealitems: {
-          type: "Select",
-          value: "3",
-          default: "3",
-          options: ["1", "2", "3"]
-        },
-        blacklistaura: {
-          type: "Multi",
-          value: defaultItemsBlacklist,
-          options: itemsList
-        },
-        blacklistcards: {
-          type: "Multi",
-          value: [],
-          options: cardsList
-        }
+        autofarm: { type: "Toggle", value: true },
+        autouseactiveability: { type: "Toggle", value: true },
+        autohealability: { type: "Toggle", value: false },
+        autoboostextraction: { type: "Toggle", value: false },
+        "autohide/blotjrability": { type: "Toggle", value: false },
+        autovotebestcard: { type: "Toggle", value: true },
+        autorejoinondisconnect: { type: "Toggle", value: true },
+        autorejoinondeath: { type: "Toggle", value: true },
+        autorejoinonplayer: { type: "Toggle", value: true },
+        autoforcestopgenerator: { type: "Toggle", value: true },
+        autoteleporttogenerator: { type: "Toggle", value: false },
+        autoteleporttoelevator: { type: "Toggle", value: false },
+        autosquirmescape: { type: "Toggle", value: true },
+        experimentalmode: { type: "Toggle", value: false },
+        encountermode: { type: "Toggle", value: true },
+        eggsonmode: { type: "Toggle", value: false },
+        primemode: { type: "Toggle", value: false },
+        disablebypassmode: { type: "Toggle", value: true },
+        disablebuyingitems: { type: "Toggle", value: false },
+        disableitempickup: { type: "Toggle", value: false },
+        forcegetitems: { type: "Toggle", value: true },
+        serveracbypass: { type: "Toggle", value: false },
+        buyaura: { type: "Toggle", value: false },
+        disablerendering: { type: "Toggle", value: false },
+        fullbright: { type: "Toggle", value: true },
+        nofog: { type: "Toggle", value: true },
+        antilag: { type: "Toggle", value: true },
+        antiafk: { type: "Toggle", value: true },
+        antipopup: { type: "Toggle", value: true },
+        antiichorscreen: { type: "Toggle", value: true },
+        regulartwisteddodgedistance: { type: "Slider", value: 60, default: 60, min: 0, max: 240 },
+        dangeroustwisteddodgedistance: { type: "Slider", value: 90, default: 90, min: 0, max: 240 },
+        limithealitems: { type: "Select", value: "3", default: "3", options: ["1", "2", "3"] },
+        blacklistaura: { type: "Multi", value: defaultItemsBlacklist, options: itemsList },
+        blacklistcards: { type: "Multi", value: [], options: cardsList }
       };
       const inputs = {},
         form = document.getElementById("form"),
@@ -195,35 +76,26 @@
         selectOrder = [];
       for (const key in config) {
         const conf = config[key];
-        if (conf.type === "Toggle") toggleOrder.push({
-          key,
-          conf
-        });
-        if (conf.type === "Slider") sliderOrder.push({
-          key,
-          conf
-        });
-        if (conf.type === "Select" || conf.type === "Multi") selectOrder.push({
-          key,
-          conf
-        });
+        if (conf.type === "Toggle") toggleOrder.push({ key, conf });
+        if (conf.type === "Slider") sliderOrder.push({ key, conf });
+        if (conf.type === "Select" || conf.type === "Multi") selectOrder.push({ key, conf });
       }
       function createSection(key, conf) {
         const section = document.createElement("div");
         section.className = "section";
         if (conf.type === "Toggle") {
           section.innerHTML = `
-					<label>
-						<input type="checkbox" ${conf.value?"checked":""}> ${key}
-						</label>`;
+            <label>
+              <input type="checkbox" ${conf.value?"checked":""}> ${key}
+            </label>`;
           inputs[key] = section.querySelector("input")
         }
         if (conf.type === "Slider") {
           section.innerHTML = `
-						<label>${key}: 
-							<input type="range" min="${conf.min}" max="${conf.max}" value="${conf.value}">
-								<span>${conf.value}</span>
-							</label>`;
+            <label>${key}: 
+              <input type="range" min="${conf.min}" max="${conf.max}" value="${conf.value}">
+              <span>${conf.value}</span>
+            </label>`;
           const slider = section.querySelector("input");
           const span = section.querySelector("span");
           slider.addEventListener("input", () => span.textContent = slider.value);
@@ -231,19 +103,19 @@
         }
         if (conf.type === "Select") {
           const options = conf.options.map(v => `
-							<option ${v===conf.value?"selected":""}>${v}</option>`).join("");
+            <option ${v===conf.value?"selected":""}>${v}</option>`).join("");
           section.innerHTML = `
-							<label>${key}: 
-								<select>${options}</select>
-							</label>`;
+            <label>${key}: 
+              <select>${options}</select>
+            </label>`;
           inputs[key] = section.querySelector("select")
         }
         if (conf.type === "Multi") {
           section.innerHTML = `
-							<label>${key}: </label>` + conf.options.map(v => `
-							<label>
-								<input type="checkbox" value="${v}" ${conf.value.includes(v)?"checked":""}> ${v}
-								</label>`).join("");
+            <label>${key}: </label>` + conf.options.map(v => `
+            <label>
+              <input type="checkbox" value="${v}" ${conf.value.includes(v)?"checked":""}> ${v}
+            </label>`).join("");
           inputs[key] = Array.from(section.querySelectorAll("input"))
         }
         return section
@@ -259,7 +131,7 @@
             elements[key] = {
               value: true,
               __type: "Toggle"
-  			};
+            };
           }
           if (conf.type === "Slider") {
             const val = +inputs[key].value;
@@ -280,6 +152,9 @@
             }
           }
           if (conf.type === "Multi") {
+            if (key === "blacklistaura" && !inputs["buyaura"].checked) {
+              continue;
+            }
             const selected = inputs[key].filter(i => i.checked).map(i => i.value);
             if (selected.length > 0) {
               elements[key] = {
